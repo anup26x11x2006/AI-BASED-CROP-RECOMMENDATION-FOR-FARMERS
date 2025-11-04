@@ -15,18 +15,22 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#abstract", label: "Abstract" },
-    { href: "#problem", label: "Problem" },
-    { href: "#methodology", label: "Methodology" },
-    { href: "#results", label: "Results" },
-    { href: "#future", label: "Future Scope" },
+    { href: "/", label: "Home", isRoute: true },
+    { href: "/scanner", label: "Crop Scanner", isRoute: true },
+    { href: "#methodology", label: "Methodology", isRoute: false },
+    { href: "#results", label: "Results", isRoute: false },
+    { href: "#future", label: "Future Scope", isRoute: false },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
+  const handleNavClick = (href: string, isRoute: boolean) => {
+    if (isRoute) {
+      window.location.href = href;
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setIsMobileMenuOpen(false);
+      }
     }
   };
 
@@ -53,7 +57,7 @@ const Navigation = () => {
               <Button
                 key={link.href}
                 variant="ghost"
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => handleNavClick(link.href, link.isRoute)}
                 className="text-foreground hover:text-primary transition-colors"
               >
                 {link.label}
@@ -79,7 +83,7 @@ const Navigation = () => {
               <Button
                 key={link.href}
                 variant="ghost"
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => handleNavClick(link.href, link.isRoute)}
                 className="w-full text-left justify-start text-foreground hover:text-primary"
               >
                 {link.label}
